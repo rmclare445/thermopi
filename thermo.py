@@ -1,7 +1,8 @@
 import time
-import RPi.GPIO as GPIO
+import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
 import thermo_query as tq
+import write_log    as wl
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -12,9 +13,10 @@ GPIO.output(18, False)
 DHT_SENSOR = ad.DHT22
 DHT_PIN = 4
 
-with open("state.log", "a") as f:
-    f.write(" T(F)| H(%)  \n")
-    f.close()
+hum, temp = ad.read_retry(DHT_SENSOR, DHT_PIN)
+temps = [temp, temp, temp]
+    
+wl.write_log(" T(F) | H(%) |")
 
 try:
     while True:
@@ -22,25 +24,25 @@ try:
         # There's an issue where every now and again, the sensor returns
         # a very low number for a short time
         
+        # Retrieve humidity, temperature, and local time
         hum, temp = ad.read_retry(DHT_SENSOR, DHT_PIN)
-        temp      = temp * (9/5.) + 32.
+        temp = temp * (9/5.) + 32.
+        ti = time.localtime()
+        print(temp, temps)
+        if abs(temp - (sum(temps)/len(temps))) < 3.:
+            stat = tq.query( ti[3], ti[4], temp, 
+                             GPIO.input(18) )
+            print(stat)
+            if stat == True:
+                GPIO.output(18, True)
+            elif stat == False:
+                GPIO.output(18, False)
         
-        stat = tq.query( time.localtime()[3], 
-                         time.localtime()[4], 
-                         temp, GPIO.input(18) )
-
-        if stat == True:
-            GPIO.output(18, True)
-            print("TRUE")
-        elif stat == False:
-            GPIO.output(18, False)
-            print("FALSE")
-        print(stat)
-        # Add times to log
-        with open("state.log", "a") as f:
-            f.write(" %0.1f   | %02d \n" % (temp, hum))
-            f.close()
-
+        wl.write_log(" %0.1f | %02d   | %02d%02d%02d" \
+                    % (temp, hum, ti[3], ti[4], ti[5]))
+        
+        temps.append( temp )
+        temps = temps[1:]
         time.sleep(5)
 finally:
     GPIO.output(18, False)
