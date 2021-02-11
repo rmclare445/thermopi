@@ -12,30 +12,36 @@ GPIO.output(18, False)
 DHT_SENSOR = ad.DHT22
 DHT_PIN = 4
 
+with open("state.log", "a") as f:
+    f.write(" T(F)| H(%)  \n")
+    f.close()
+
 try:
     while True:
 
         # There's an issue where every now and again, the sensor returns
         # a very low number for a short time
-
-        # Thermometer adjusts slowly and fluctuates slightly.  Beware
-        # fluctuations near thresholds (need tolerances).
+        
         hum, temp = ad.read_retry(DHT_SENSOR, DHT_PIN)
         temp      = temp * (9/5.) + 32.
-        print(temp)
         
-        # There should be some tolerance so that it's not too delicate
-        # and constantly switching back and forth
-        stat = tq.query(time.localtime()[3], time.localtime()[4], temp)
+        stat = tq.query( time.localtime()[3], 
+                         time.localtime()[4], 
+                         temp, GPIO.input(18) )
 
-        if stat:
-            if not GPIO.input(18):
-                GPIO.output(18, True)
-        else:
-            if GPIO.input(18):
-                GPIO.output(18, False)
+        if stat == True:
+            GPIO.output(18, True)
+            print("TRUE")
+        elif stat == False:
+            GPIO.output(18, False)
+            print("FALSE")
+        print(stat)
+        # Add times to log
+        with open("state.log", "a") as f:
+            f.write(" %0.1f   | %02d \n" % (temp, hum))
+            f.close()
 
-        time.sleep(2)
+        time.sleep(5)
 finally:
     GPIO.output(18, False)
     GPIO.cleanup()
