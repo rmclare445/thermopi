@@ -14,7 +14,7 @@ GPIO.setup(18, GPIO.OUT)
 GPIO.output(18, False)
 
 # Empty list for averaging temperatures
-temps = [None] * 4
+temps = [0] * 4
 
 # Write header to log
 wl.write_log(" T(F) | H(%) | Time")
