@@ -1,5 +1,4 @@
-# thermopi
+# thermopi v1.0
 Smart thermostat with Raspberry Pi
 
-- Writing underway.
-- For now, issues are written as comments in the code.  
+- Documentation forthcoming.
