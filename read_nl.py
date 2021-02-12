@@ -22,9 +22,12 @@ def read_nl( ):
         elif "dp_temp" in line:
             exec( "global dp_temp; " + line )
             nml_opts["dp_temp"] = float(dp_temp)
-        elif "thresh" in line:
-            exec( "global thresh; " + line )
-            nml_opts["thresh"] = float(thresh)
+        elif "up_tol" in line:
+            exec( "global up_tol; " + line )
+            nml_opts["up_tol"] = float(up_tol)
+        elif "dn_tol" in line:
+            exec( "global dn_tol; " + line )
+            nml_opts["dn_tol"] = float(dn_tol)
             
     return nml_opts
 

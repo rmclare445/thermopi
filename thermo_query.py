@@ -16,12 +16,12 @@ def query( hr, mn, T, outpt ):
     
     # If output is True/False, check threshold
     if outpt:
-        if T >= TT + nml_opts["thresh"]:
+        if T >= TT + nml_opts["up_tol"]:
             return False
         else:
             return None
     else:
-        if T <= TT - nml_opts["thresh"]:
+        if T <= TT - nml_opts["dn_tol"]:
             return True
         else:
             return None

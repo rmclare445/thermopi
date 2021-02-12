@@ -1,4 +1,4 @@
-#
+#-Notes--------------------------------------------------------
 #
 # These variable assignments are fed directly into the 
 #  Python command line so syntax is important.
@@ -8,6 +8,15 @@
 # Any line with a '#' is automatically ignored, regardless
 #  of placement.
 #
+#-Variables----------------------------------------------------
+#
+# np_begin = beginning hour of night phase
+# np_end   = ending hour of night phase
+# np_temp  = target temperature for night phase
+# dp_temp  = target temperature for day phase
+# up_tol   = tolerance above target to trigger shutoff
+# dn_tol   = tolerance below target to trigger shutoff
+
 
 # Night phase
 np_begin = 22
@@ -17,5 +26,6 @@ np_temp  = 66
 # Day phase
 dp_temp  = 70
 
-# Threshold - The 'wiggle room' about the target temps
-thresh   =  1
+# Tolerances - The 'wiggle room' about the target temps
+up_tol   = 1.
+dn_tol   = 1.
