@@ -44,7 +44,10 @@ try:
         # Add new temp, delete oldest
         temps = update( temp, temps )
         time.sleep(5)
+        
 finally:
+    wl.write_log("thermopi terminated at %02d:%02d:%02d" \
+                % (lt[3], lt[4], lt[5] ))
+    # Should add email notification...
     GPIO.output(18, False)
     GPIO.cleanup()
-
