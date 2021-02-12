@@ -33,6 +33,7 @@ try:
             
             try:
                 GPIO.output(18, stat)
+                wl.write_log("Output changed to %s" % stat)
             except:
                 pass
         

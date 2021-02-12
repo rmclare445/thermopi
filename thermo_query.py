@@ -10,12 +10,12 @@ def query( hr, mn, T, opt ):
     
     # If output is True/False, check threshold
     if opt:
-        if T >= TT + 0.5:
+        if T >= TT + 1.:
             return False
         else:
             return None
     else:
-        if T <= TT - 0.5:
+        if T <= TT - 1.:
             return True
         else:
             return None
