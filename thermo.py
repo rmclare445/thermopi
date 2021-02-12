@@ -30,25 +30,30 @@ try:
         # if toggle == True:  ## for toggle switch/button addition
         
         # Ensure perturbation magnitude is reasonable
-        if pert( temp, temps ) < 3.:
-            stat = tq.query( lt[3], lt[4], temp, 
-                             GPIO.input(18) )
-            
-            try:
-                GPIO.output(18, stat)
-                wl.write_log("Output changed to %s" % stat)
-            except:
-                pass
+        if hum <= 104.:
+            if pert( temp, temps ) < 3.:
+                stat = tq.query( lt[3], lt[4], temp, 
+                                 GPIO.input(18) )
                 
-        # else:              ## for toggle switch/button addition
-                             ## may add toggle boolean to log
+                try:
+                    GPIO.output(18, stat)
+                    wl.write_log("Output changed to %s" % stat)
+                except:
+                    pass
+                    
+            # else:              ## for toggle switch/button addition
+                                 ## may add toggle boolean to log
+            
+            # Write state and times to log
+            wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d" \
+                        % ( temp, hum, lt[3], lt[4], lt[5] ))
         
-        # Write state and times to log
-        wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d" \
-                    % ( temp, hum, lt[3], lt[4], lt[5] ))
-        
-        # Add new temp, delete oldest, wait 10 seconds
-        temps = update( temp, temps )
+            # Add new temp, delete oldest, wait 10 seconds
+            temps = update( temp, temps )
+            
+        # else:                            ## for toggle switch/button addition
+            # record state to log anyway   ## may add toggle boolean to log
+            
         time.sleep(10)
         
 finally:
