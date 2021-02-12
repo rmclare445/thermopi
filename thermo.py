@@ -26,6 +26,7 @@ try:
         temp = C_to_F( temp )
         lt = time.localtime()
         
+        # Ensure perturbation magnitude is reasonable
         if pert( temp, temps ) < 3.:
             stat = tq.query( lt[3], lt[4], temp, 
                              GPIO.input(18) )
