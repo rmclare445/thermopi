@@ -12,6 +12,8 @@ def read_nl( ):
             pass
         elif "np_begin" in line:
             exec( line )
+            print(line)
+            print(np_begin)
             nml_opts["np_begin"] = int(np_begin)
         elif "np_end" in line:
             exec( line )

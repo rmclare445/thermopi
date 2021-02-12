@@ -1,14 +1,21 @@
-
+#
+#
+# These variable assignments are fed directly into the 
+#  Python command line so syntax is important.
+#
+# All time must be considered on a 24-hour clock.
+#
+# Any line with a '#' is automatically ignored, regardless
+#  of placement.
+#
 
 # Night phase
 np_begin = 22
 np_end   =  7
 np_temp  = 66
 
-
 # Day phase
 dp_temp  = 70
 
-
-# Other
+# Threshold - The 'wiggle room' about the target temps
 thresh   =  1
