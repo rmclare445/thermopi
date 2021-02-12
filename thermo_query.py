@@ -1,24 +1,27 @@
-def query( hr, mn, T, opt ):
+import read_nl as nl
+
+def query( hr, mn, T, outpt ):
     # Input: hour, minute, temperature, output
+    
+    # Reads namelist every time, allowing user to
+    # change settings without halting operation
+    nl_opts = nl.read_nl()
     
     # Thresholds and time dependencies
     # Should use minutes at some point
-    ## Should really use a namelist for schedule
-    ## hours as well as temperatures; this would
-    ## enable altering these settings during operation
-    if hr >= 22 or hr < 7:
-        TT = 66.
+    if hr >= nl_opts["np_begin"] or hr < nl_opts["np_end"]:
+        TT = nl_opts["np_temp"]
     else:
-        TT = 70.
+        TT = nl_opts["dp_temp"]
     
     # If output is True/False, check threshold
-    if opt:
-        if T >= TT + 1.:
+    if outpt:
+        if T >= TT + nml_opts["thresh"]:
             return False
         else:
             return None
     else:
-        if T <= TT - 1.:
+        if T <= TT - nml_opts["thresh"]:
             return True
         else:
             return None

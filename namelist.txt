@@ -1,0 +1,14 @@
+
+
+# Night phase
+np_begin = 22
+np_end   =  7
+np_temp  = 66
+
+
+# Day phase
+dp_temp  = 70
+
+
+# Other
+thresh   =  1
