@@ -3,7 +3,7 @@ Smart thermostat with Raspberry Pi
 
 I got annoyed with my ordinary thermostat because I wanted different temperature targets at different times of day.  After determining that replacing it with a relay module governed by a Respberry Pi would be simple, I set about making my own smart thermostat.  The possibilities for new features is endless and I'm definitely open to suggestions.  Now my wall is ugly where my naked Raspberry Pi Zero W hangs idly by its power cord near the relay, supporting the thermometer's breadboard by jumper wire.  So the next big step will be to build some housing for it.  Other feature ideas are hidden throughout the code in comments.
 
-# Physical configuration
+## Physical configuration
 
 - Use a single relay module connecting furnace heat relay in the N/O position.
   - Relay input signal wire is currently configured to GPIO18 on RPi.
@@ -15,7 +15,7 @@ I got annoyed with my ordinary thermostat because I wanted different temperature
   
 - Diagram forthcoming
 
-# Usage
+## Usage
 
 With peripherals in place, modules acquired, and the namelist filled out, this should get things going:
 
