@@ -32,6 +32,8 @@ try:
             
             try:
                 GPIO.output(18, stat)
+            except:
+                pass
         
         # Write state and times to log
         wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d" \
