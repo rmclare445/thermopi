@@ -8,7 +8,7 @@ GMAIL_USERNAME = mi.sender_gmail_username
 GMAIL_PASSWORD = mi.sender_gmail_password
 RCPNT_USERNAME = mi.recpnt_email_username
 
-def sendmail(self, content):
+def sendmail(content):
      
     #Create Headers
     headers = ["From: " + GMAIL_USERNAME, "Subject: THERMOSTAT TERMINATED", "To: " + RCPNT_USERNAME,
