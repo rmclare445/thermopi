@@ -1,5 +1,9 @@
 #-Notes--------------------------------------------------------
 #
+# This namelist is referenced every cycle which means that 
+#  the variables herein may be changed and the thermostat
+#  will react without halting or interrupting operation.
+#
 # These variable assignments are fed directly into the 
 #  Python command line so syntax is important.
 #
@@ -15,7 +19,7 @@
 # np_temp  = target temperature for night phase
 # dp_temp  = target temperature for day phase
 # up_tol   = tolerance above target to trigger shutoff
-# dn_tol   = tolerance below target to trigger shutoff
+# dn_tol   = tolerance below target to trigger relay
 
 
 # Night phase

@@ -3,6 +3,7 @@ import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
 import thermo_query as tq
 import write_log    as wl
+import email_notify as en
 from tools import *
 
 # Set up GPIO board
@@ -29,20 +30,19 @@ try:
         
         # if toggle == True:  ## for toggle switch/button addition
         
-        # Ensure perturbation magnitude is reasonable
+        # Discard data with unreasonably high humidity (indicator of bad data)
         if hum <= 104.:
-            if pert( temp, temps ) < 3.:
+            # Ensure perturbation magnitude is reasonable (don't react to bad data)
+            if pert( temp, temps ) < 1.5:
                 stat = tq.query( lt[3], lt[4], temp, 
                                  GPIO.input(18) )
                 
                 try:
                     GPIO.output(18, stat)
+                    ## Should probably turn this log entry into its own column (T/F)
                     wl.write_log("Output changed to %s" % stat)
                 except:
                     pass
-                    
-            # else:              ## for toggle switch/button addition
-                                 ## may add toggle boolean to log
             
             # Write state and times to log
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d" \
@@ -57,8 +57,10 @@ try:
         time.sleep(10)
         
 finally:
-    wl.write_log("thermopi terminated at %02d:%02d:%02d" \
-                % (lt[3], lt[4], lt[5] ))
-    ## Should add email notification...
+    wl.write_log("thermopi terminated")
+    try:
+        en.sendmail( time.asctime() )
+    except:
+        raise RuntimeWarning("Unable to send email.")
     GPIO.output(18, False)
     GPIO.cleanup()
