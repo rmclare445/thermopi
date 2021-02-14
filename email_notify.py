@@ -4,9 +4,9 @@ import info.mail_info
 #Email Variables
 SMTP_SERVER    = 'smtp.gmail.com'      #Email Server (don't change!)
 SMTP_PORT      = 587                   #Server Port (don't change!)
-GMAIL_USERNAME = mail_info.sender_gmail_username
-GMAIL_PASSWORD = mail_info.sender_gmail_password
-RCPNT_USERNAME = mail_info.recpnt_email_username
+GMAIL_USERNAME = sender_gmail_username
+GMAIL_PASSWORD = sender_gmail_password
+RCPNT_USERNAME = recpnt_email_username
 
 def sendmail(self, content):
      
