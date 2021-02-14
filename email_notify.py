@@ -1,5 +1,5 @@
 import smtplib
-import mail_info
+import info.mail_info
 
 #Email Variables
 SMTP_SERVER    = 'smtp.gmail.com'      #Email Server (don't change!)
