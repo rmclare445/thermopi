@@ -3,6 +3,7 @@ import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
 import thermo_query as tq
 import write_log    as wl
+import email_notify as en
 from tools import *
 
 # Set up GPIO board
@@ -57,6 +58,9 @@ try:
         
 finally:
     wl.write_log("thermopi terminated")
-    ## Should add email notification...
+    try:
+        en.sendmail( time.asctime() )
+    except:
+        raise RuntimeWarning("Unable to send email.")
     GPIO.output(18, False)
     GPIO.cleanup()
