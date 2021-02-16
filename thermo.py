@@ -13,6 +13,7 @@ GPIO.setmode(GPIO.BCM)
 # Set up relay signal
 GPIO.setup(18, GPIO.OUT)
 GPIO.output(18, False)
+stat = False
 
 # Empty list for averaging temperatures
 temps = [0] * 4
@@ -40,13 +41,14 @@ try:
                 try:
                     GPIO.output(18, stat)
                     ## Should probably turn this log entry into its own column (T/F)
-                    wl.write_log("Output changed to %s" % stat)
+                    #wl.write_log("Output changed to %s" % stat)
+                    log_stat = "T" if stat == True else "F"
                 except:
                     pass
             
             # Write state and times to log
-            wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d" \
-                        % ( temp, hum, lt[3], lt[4], lt[5] ))
+            wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
+                        % ( temp, hum, lt[3], lt[4], lt[5], log_stat ))
         
             # Add new temp, delete oldest, wait 10 seconds
             temps = update( temp, temps )
