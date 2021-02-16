@@ -42,7 +42,7 @@ try:
                 
                 if stat == True or stat == False:
                     GPIO.output(18, stat)
-                    log_stat = "T" if stat == True else "F"
+                    log_stat = "T" if stat else "F"
             
             # Write state and times to log
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
