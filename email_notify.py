@@ -1,4 +1,7 @@
 import smtplib
+# This requires a directory, info/ , and two files within:
+#  a blank __init__.py file and a mail_info file which contains
+#  the mi.* variables below.
 import info.mail_info as mi
 
 #Email Variables
@@ -27,3 +30,7 @@ def sendmail(content):
     #Send Email & Exit
     session.sendmail(GMAIL_USERNAME, RCPNT_USERNAME, headers + "\r\n\r\n" + content)
     session.quit
+    
+    
+if __name__ == "__main__":
+    sendmail( "This is a test." )
