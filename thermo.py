@@ -19,7 +19,7 @@ stat = False
 temps = [0] * 4
 
 # Write header to log
-wl.write_log(" T(F) | H(%) | Time")
+wl.write_log(" T(F) | H(%) | Time    | S")
 
 try:
     while True:
@@ -35,16 +35,14 @@ try:
         if hum <= 104.:
             # Ensure perturbation magnitude is reasonable (don't react to bad data)
             if pert( temp, temps ) < 1.5:
+                
+                # Check whether conditions warrant a change in relay status
                 stat = tq.query( lt[3], lt[4], temp, 
                                  GPIO.input(18) )
                 
-                try:
+                if stat == True or stat == False:
                     GPIO.output(18, stat)
-                    ## Should probably turn this log entry into its own column (T/F)
-                    #wl.write_log("Output changed to %s" % stat)
                     log_stat = "T" if stat == True else "F"
-                except:
-                    pass
             
             # Write state and times to log
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
@@ -59,10 +57,10 @@ try:
         time.sleep(10)
         
 finally:
+    GPIO.output(18, False)
+    GPIO.cleanup()
     wl.write_log("thermopi terminated")
     try:
         en.sendmail( time.asctime() )
     except:
         raise RuntimeWarning("Unable to send email.")
-    GPIO.output(18, False)
-    GPIO.cleanup()
