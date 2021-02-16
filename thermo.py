@@ -13,7 +13,7 @@ GPIO.setmode(GPIO.BCM)
 # Set up relay signal
 GPIO.setup(18, GPIO.OUT)
 GPIO.output(18, False)
-log_stat = False
+log_stat = "F"
 
 # Empty list for averaging temperatures
 temps = [0] * 4
