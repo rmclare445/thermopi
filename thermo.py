@@ -19,7 +19,7 @@ log_stat = "F"
 temps = [0] * 4
 
 # Write header to log
-wl.write_log(" T(F) | H(%) | Time    | S")
+wl.write_log(" T(F) | H(%) | Time     | S")
 
 try:
     while True:
