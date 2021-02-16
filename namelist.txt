@@ -23,13 +23,15 @@
 
 
 # Night phase
-np_begin = 23
-np_end   =  8
-np_temp  = 66
+np_begin_hr = 22
+np_begin_mn = 30
+np_end_hr   =  8
+np_end_mn   = 30
+np_temp     = 66
 
 # Day phase
-dp_temp  = 70
+dp_temp     = 70
 
 # Tolerances - The 'wiggle room' about the target temps
-up_tol   = 1.
-dn_tol   = 1.
+up_tol      = 1.
+dn_tol      = 1.

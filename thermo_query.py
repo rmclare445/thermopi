@@ -7,10 +7,24 @@ def query( hr, mn, T, outpt ):
     # change settings without halting operation
     nml_opts = nl.read_nl()
     
-    # Thresholds and time dependencies
-    ## Should use minutes at some point
-    if hr >= nml_opts["np_begin"] or hr < nml_opts["np_end"]:
-        TT = nml_opts["np_temp"]
+    # Thresholds (target temps) and time dependencies
+    ## Just day/night phase are possible now. Middle phases
+    ##  may come later but there's no need at present.
+    ## Other scheduling considerations such as day of week
+    ##  or seasonal dependence may be worthwhile.
+    if hr >= nml_opts["np_begin_hr"] or hr <= nml_opts["np_end_hr"]:
+        if hr == nml_opts["np_begin_hr"]:
+            if mn >= nml_opts["np_begin_mn"]:
+                TT = nml_opts["np_temp"]
+            else:
+                TT = nml_opts["dp_temp"]
+        elif hr == nml_opts["np_end_hr"]:
+            if mn < nml_opts["np_end_mn"]:
+                TT = nml_opts["np_temp"]
+            else:
+                TT = nml_opts["dp_temp"]
+        else:
+            TT = nml_opts["np_temp"]
     else:
         TT = nml_opts["dp_temp"]
     
