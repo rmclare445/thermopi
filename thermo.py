@@ -45,6 +45,7 @@ try:
                     log_stat = "T" if stat else "F"
             
             # Write state and times to log
+            ## Need to add date to log
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
                         % ( temp, hum, lt[3], lt[4], lt[5], log_stat ))
         

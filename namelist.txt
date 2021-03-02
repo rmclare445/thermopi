@@ -14,12 +14,14 @@
 #
 #-Variables----------------------------------------------------
 #
-# np_begin = beginning hour of night phase
-# np_end   = ending hour of night phase
-# np_temp  = target temperature for night phase
-# dp_temp  = target temperature for day phase
-# up_tol   = tolerance above target to trigger shutoff
-# dn_tol   = tolerance below target to trigger relay
+# np_begin_hr = beginning hour of night phase
+# np_begin_mn = beginning minute of night phase
+# np_end_hr   = ending hour of night phase
+# np_end_mn   = ending minute of night phase
+# np_temp     = target temperature for night phase
+# dp_temp     = target temperature for day phase
+# up_tol      = tolerance above target to trigger shutoff
+# dn_tol      = tolerance below target to trigger relay
 
 
 # Night phase
