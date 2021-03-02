@@ -4,7 +4,7 @@ def query( hr, mn, T, outpt ):
     # Input: hour, minute, temperature, output
     
     # Reads namelist every time, allowing user to
-    # change settings without halting operation
+    #  change settings without halting operation
     nml_opts = nl.read_nl()
     
     # Thresholds (target temps) and time dependencies

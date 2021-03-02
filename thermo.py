@@ -40,6 +40,7 @@ try:
                 stat = tq.query( lt[3], lt[4], temp, 
                                  GPIO.input(18) )
                 
+                # If status change is warranted, change status
                 if stat == True or stat == False:
                     GPIO.output(18, stat)
                     log_stat = "T" if stat else "F"
@@ -49,7 +50,7 @@ try:
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
                         % ( temp, hum, lt[3], lt[4], lt[5], log_stat ))
         
-            # Add new temp, delete oldest, wait 10 seconds
+            # Add new temp, delete oldest
             temps = update( temp, temps )
             
         # else:                            ## for toggle switch/button addition
