@@ -24,3 +24,4 @@ sudo python3 thermo.py
 ```
 
 You may wish to run this in the background or [on a separate screen](https://www.howtogeek.com/662422/how-to-use-linuxs-screen-command/).  You can periodically check the state.log for data and can plot from it.  (I'll add a plotting script at some point, too).
+
