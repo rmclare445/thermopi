@@ -34,8 +34,16 @@ def read_nl( ):
         elif "dn_tol" in line:
             exec( "global dn_tol; "      + line )
             nml_opts["dn_tol"]      = float(dn_tol)
+        elif "freq" in line:
+            exec( "global freq; "        + line )
+            nml_opts["freq"]        = float(freq)
             
     return nml_opts
+    
+def get_freq( ):
+    
+    nml_opts = read_nl( )
+    return nml_opts["freq"]
 
 ## Maybe add a function to reset nl to default values
 

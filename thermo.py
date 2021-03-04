@@ -4,7 +4,8 @@ import Adafruit_DHT as ad
 import thermo_query as tq
 import write_log    as wl
 import email_notify as en
-from tools import *
+from   tools        import *
+from   read_nl      import get_freq
 
 # Set up GPIO board
 GPIO.setwarnings(False)
@@ -27,7 +28,10 @@ try:
         # Retrieve humidity, temperature, and local time
         hum, temp = ad.read_retry(ad.DHT22, 4)
         temp = C_to_F( temp )
-        lt = time.localtime()
+        lt = time.localtime( )
+        
+        # Check namelist for frequency
+        freq = get_freq( )
         
         # if toggle == True:  ## for toggle switch/button addition
         
@@ -50,19 +54,19 @@ try:
             wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
                         % ( temp, hum, lt[3], lt[4], lt[5], log_stat ))
         
-            # Add new temp, delete oldest
+            # Add new temp, delete oldest even if perturbation magnitude is high
             temps = update( temp, temps )
             
         # else:                            ## for toggle switch/button addition
             # record state to log anyway   ## may add toggle boolean to log
             
-        time.sleep(10)
+        time.sleep(1/freq)
         
 finally:
     GPIO.output(18, False)
-    GPIO.cleanup()
+    GPIO.cleanup( )
     wl.write_log("thermopi terminated")
     try:
-        en.sendmail( time.asctime() )
+        en.sendmail( time.asctime( ) )
     except:
         raise RuntimeWarning("Unable to send email.")

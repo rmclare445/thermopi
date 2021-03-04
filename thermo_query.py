@@ -1,11 +1,11 @@
-import read_nl as nl
+from read_nl import read_nl
 
 def query( hr, mn, T, outpt ):
     # Input: hour, minute, temperature, output
     
     # Reads namelist every time, allowing user to
     #  change settings without halting operation
-    nml_opts = nl.read_nl()
+    nml_opts = read_nl()
     
     # Thresholds (target temps) and time dependencies
     ## Just day/night phase are possible now. Middle phases

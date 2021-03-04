@@ -22,6 +22,7 @@
 # dp_temp     = target temperature for day phase
 # up_tol      = tolerance above target to trigger shutoff
 # dn_tol      = tolerance below target to trigger relay
+# freq        = Frequency in Hz of temperature check/log
 
 
 # Night phase
@@ -37,3 +38,6 @@ dp_temp     = 70
 # Tolerances - The 'wiggle room' about the target temps
 up_tol      = 1.
 dn_tol      = 1.
+
+# Data freguency
+freq        = .1
