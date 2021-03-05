@@ -18,8 +18,8 @@
 # np_begin_mn = beginning minute of night phase
 # np_end_hr   = ending hour of night phase
 # np_end_mn   = ending minute of night phase
-# np_temp     = target temperature for night phase
-# dp_temp     = target temperature for day phase
+# np_temp     = target temperature for night phase in deg F
+# dp_temp     = target temperature for day phase in deg F
 # up_tol      = tolerance above target to trigger shutoff
 # dn_tol      = tolerance below target to trigger relay
 # freq        = Frequency in Hz of temperature check/log
