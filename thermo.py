@@ -41,8 +41,7 @@ try:
             if pert( temp, temps ) < 1.5:
                 
                 # Check whether conditions warrant a change in relay status
-                stat = tq.query( lt[3], lt[4], temp, 
-                                 GPIO.input(18) )
+                stat = tq.query( lt[3], lt[4], temp, GPIO.input(18) )
                 
                 # If status change is warranted, change status
                 if stat == True or stat == False:

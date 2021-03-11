@@ -5,7 +5,7 @@
 #  will react without halting or interrupting operation.
 #
 # These variable assignments are fed directly into the 
-#  Python command line so syntax is important.
+#  Python script so syntax is important.
 #
 # All time must be considered on a 24-hour clock.
 #
@@ -22,8 +22,8 @@
 # dp_temp     = target temperature for day phase in deg F
 # up_tol      = tolerance above target to trigger shutoff
 # dn_tol      = tolerance below target to trigger relay
-# freq        = Frequency in Hz of temperature check/log
-
+# freq        = frequency in Hz of temperature check/log
+#
 
 # Night phase
 np_begin_hr = 22
@@ -39,5 +39,5 @@ dp_temp     = 70
 up_tol      = 1.
 dn_tol      = 1.
 
-# Data freguency
+# Data frequency
 freq        = .1
