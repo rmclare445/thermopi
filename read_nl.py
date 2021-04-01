@@ -1,3 +1,6 @@
+nml_error_dp_default = 70   ## in case of bogus nml temps
+nml_error_np_default = 66
+
 def read_nl( ):
 
     nml_opts = {}
@@ -38,12 +41,17 @@ def read_nl( ):
             exec( "global freq; "        + line )
             nml_opts["freq"]        = float(freq)
             
+    # Bogus fix
+    if nml_opts["dp_temp"] >= 100:
+        nml_opts["dp_temp"] = nml_error_dp_default
+    if nml_opts["np_temp"] >= 100:
+        nml_opts["np_temp"] = nml_error_np_default
+            
     return nml_opts
     
 def get_freq( ):
-    
-    nml_opts = read_nl( )
-    return nml_opts["freq"]
+    # Only returns frequency
+    return read_nl( )["freq"]
 
 ## Maybe add a function to reset nl to default values
 
