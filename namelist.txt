@@ -24,6 +24,18 @@
 # dn_tol      = tolerance below target to trigger relay
 # freq        = frequency in Hz of temperature check/log
 #
+#-New-Operation-Proposal---------------------------------------
+# Like weather models, phases should be defined on same line, i.e.
+#
+# nPhase  = 3,
+# phaseHr = 8,  12, 22
+# phaseMn = 30, 00, 30
+# phaseT  = 71, 69, 66
+#
+# This would allow the definition of numerous phases very easily
+#  but will also require changes to how the namelist is read as
+#  these definitions cannot simply be fed into the interpreter.
+#--------------------------------------------------------------
 
 # Night phase
 np_begin_hr = 22
