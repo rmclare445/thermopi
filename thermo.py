@@ -3,7 +3,7 @@ import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
 import thermo_query as tq
 import write_log    as wl
-import email_notify as en
+#import email_notify as en
 from   tools        import *
 from   read_nl      import get_freq
 
@@ -33,12 +33,10 @@ try:
         # Check namelist for frequency
         freq = get_freq( )
         
-        # if toggle == True:  ## for toggle switch/button addition
-        
         # Discard data with unreasonably high humidity (indicator of bad data)
         if hum <= 104.:
             # Ensure perturbation magnitude is reasonable (don't react to bad data)
-            if pert( temp, temps ) < 1.5:
+            if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
                 
                 # Check whether conditions warrant a change in relay status
                 stat = tq.query( lt[3], lt[4], temp, GPIO.input(18) )
@@ -55,9 +53,6 @@ try:
         
             # Add new temp, delete oldest even if perturbation magnitude is high
             temps = update( temp, temps )
-            
-        # else:                            ## for toggle switch/button addition
-            # record state to log anyway   ## may add toggle boolean to log
             
         time.sleep(1/freq)
         
