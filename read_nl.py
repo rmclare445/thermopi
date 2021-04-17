@@ -21,6 +21,8 @@ def read_nl( ):
             nml_opts["phase_min"] = phase_min
         elif "phase_T" in line:
             exec( "global phase_T; "   + line )
+            ## if i > 90. for i in phase_T:
+            ##  Bogus fix; consider adding default variables to nml
             nml_opts["phase_T"]   = phase_T
         elif "up_tol" in line:
             exec( "global up_tol; "    + line )
