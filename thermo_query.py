@@ -12,8 +12,8 @@ def query( hr, mn, T, outpt ):
     if nml_opts["n_phase"] == 1:
         TT = nml_opts["phase_T"]
     # For the final phase (because it sometimes spans midnight)
-    elif (hr == nml_opts["phase_hr"][0] and mn < nml_opts["phase_min"][0]) or
-         (hr == nml_opts["phase_hr"][-1] and mn >= nml_opts["phase_min"][-1]) or
+    elif (hr == nml_opts["phase_hr"][0] and mn < nml_opts["phase_min"][0]) or \
+         (hr == nml_opts["phase_hr"][-1] and mn >= nml_opts["phase_min"][-1]) or \
           hr > nml_opts["phase_hr"][-1] or hr < nml_opts["phase_hr"][0]:
         TT = nml_opts["phase_T"][-1]
     # For all phases except the final
