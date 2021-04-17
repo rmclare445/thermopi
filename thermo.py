@@ -65,7 +65,7 @@ finally:
     GPIO.output(18, False)
     GPIO.cleanup( )
     wl.write_log("thermopi terminated")
-    try:
-        en.sendmail( time.asctime( ) )
-    except:
-        raise RuntimeWarning("Unable to send email.")
+    # try:
+        # en.sendmail( time.asctime( ) )
+    # except:
+        # raise RuntimeWarning("Unable to send email.")
