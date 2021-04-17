@@ -20,7 +20,7 @@ def query( hr, mn, T, outpt ):
     elif nml_opts["n_phase"] > 2:
         for phase in range( nml_opts["n_phase"]-1 ):
             if ( ( 
-                   hr > nml_opts["phase_hr"] or
+                   hr > nml_opts["phase_hr"][phase] or
                    (hr == nml_opts["phase_hr"][phase] and mn >= nml_opts["phase_min"][phase])
                  ) 
                  and 
