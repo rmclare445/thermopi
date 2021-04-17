@@ -30,8 +30,8 @@ phase_min = (20, 00, 30)
 phase_T   = (71, 69, 65)
 
 # Tolerances - The 'wiggle room' about the target temps (deg F)
-up_tol      = 1.
-dn_tol      = 1.
+up_tol    = 1.
+dn_tol    = 1.
 
 # Data frequency (in units of per second)
-freq        = .1
+freq      = .1
