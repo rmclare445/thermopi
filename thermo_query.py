@@ -21,12 +21,12 @@ def query( hr, mn, T, outpt ):
         for phase in range( nml_opts["n_phase"]-1 ):
             if ( ( 
                    hr > nml_opts["phase_hr"][phase] or
-                   (hr == nml_opts["phase_hr"][phase] and mn >= nml_opts["phase_min"][phase])
+                  (hr == nml_opts["phase_hr"][phase] and mn >= nml_opts["phase_min"][phase])
                  ) 
                  and 
                  ( 
-                   (hr < nml_opts["phase_hr"][phase+1]) or
-                   (hr == nml_opts["phase_hr"][phase+1] and mn < nml_opts["phase_min"][phase+1])
+                   hr < nml_opts["phase_hr"][phase+1] or
+                  (hr == nml_opts["phase_hr"][phase+1] and mn < nml_opts["phase_min"][phase+1])
                  )
                ):
                 TT = nml_opts["phase_T"][phase]

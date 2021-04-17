@@ -23,6 +23,19 @@
 # freq      = frequency in Hz of temperature check/log
 #
 
+## Next step, different phase configurations for days of the week
+##  so house isn't heated too much while people are at work.
+##  E.G.
+##  # Weekday phase
+##  n_phase    = 4
+##  phase_hr   = (6,  8,  16, 22)
+##  phase_min  = (50, 30, 30, 30)
+##  phase_T    = (71, 64, 70, 65)
+##  phase_days = (1, 2, 3, 4, 5)
+##  # Weekend phase
+##  etc.
+##  phase_days = (6, 7)
+
 # Phase configuration ( n_phase = len(phase_*) )
 n_phase   = 3
 phase_hr  = (8,  11, 22)
