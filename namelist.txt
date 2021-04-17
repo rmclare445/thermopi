@@ -1,8 +1,8 @@
-#-Notes--------------------------------------------------------
+#-Notes----------------------------------------------------------
 #
-# This namelist is referenced every cycle which means that 
-#  the variables herein may be changed and the thermostat
-#  will react without halting or interrupting operation.
+# This namelist is referenced every cycle which means that the
+#  variables herein may be changed and the thermostat will react
+#  without halting or interrupting operation.
 #
 # These variable assignments are fed directly into the 
 #  Python script so syntax is important.
@@ -12,44 +12,39 @@
 # Any line with a '#' is automatically ignored, regardless
 #  of placement.
 #
-#-Variables----------------------------------------------------
+#-Variables------------------------------------------------------
 #
-# np_begin_hr = beginning hour of night phase
-# np_begin_mn = beginning minute of night phase
-# np_end_hr   = ending hour of night phase
-# np_end_mn   = ending minute of night phase
-# np_temp     = target temperature for night phase in deg F
-# dp_temp     = target temperature for day phase in deg F
-# up_tol      = tolerance above target to trigger shutoff
-# dn_tol      = tolerance below target to trigger relay
-# freq        = frequency in Hz of temperature check/log
+# n_phase   = number of phases (must = # elements in phase lists)
+# phase_hr  = beginning hour(s) of respective phase(s)
+# phase_min = beginning minute(s) of respective phase(s)
+# phase_T   = temperature(s) of respective phase(s)
+# up_tol    = tolerance above target to trigger shutoff
+# dn_tol    = tolerance below target to trigger relay
+# freq      = frequency in Hz of temperature check/log
 #
-#-New-Operation-Proposal---------------------------------------
-# Like weather models, phases should be defined on same line, i.e.
-#
-# nPhase  = 3,
-# phaseHr = 8,  12, 22
-# phaseMn = 30, 00, 30
-# phaseT  = 71, 69, 66
-#
-# This would allow the definition of numerous phases very easily
-#  but will also require changes to how the namelist is read as
-#  these definitions cannot simply be fed into the interpreter.
-#--------------------------------------------------------------
 
-# Night phase
-np_begin_hr = 22
-np_begin_mn = 30
-np_end_hr   =  8
-np_end_mn   = 30
-np_temp     = 66
+## Next step, different phase configurations for days of the week
+##  so house isn't heated too much while people are at work.
+##  E.G.
+##  # Weekday phase
+##  n_phase    = 4
+##  phase_hr   = (6,  8,  16, 22)
+##  phase_min  = (50, 30, 30, 30)
+##  phase_T    = (71, 64, 70, 65)
+##  phase_days = (1, 2, 3, 4, 5)
+##  # Weekend phase
+##  etc.
+##  phase_days = (6, 7)
 
-# Day phase
-dp_temp     = 70
+# Phase configuration ( n_phase = len(phase_*) )
+n_phase   = 3
+phase_hr  = (8,  11, 22)
+phase_min = (20, 00, 30)
+phase_T   = (71, 69, 65)
 
-# Tolerances - The 'wiggle room' about the target temps
-up_tol      = 1.
-dn_tol      = 1.
+# Tolerances - The 'wiggle room' about the target temps (deg F)
+up_tol    = 1.
+dn_tol    = 1.
 
-# Data frequency
-freq        = .1
+# Data frequency (in units of per second)
+freq      = .1
