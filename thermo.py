@@ -42,7 +42,7 @@ try:
                 stat = tq.query( lt[3], lt[4], temp, GPIO.input(18) )
                 
                 # If status change is warranted, change status
-                if stat == True or stat == False:
+                if stat is not None:
                     GPIO.output(18, stat)
                     log_stat = "T" if stat else "F"
             
