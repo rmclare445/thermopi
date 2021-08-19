@@ -7,9 +7,12 @@ def query( hr, mn, T, outpt ):
     #  change settings without halting operation
     nml_opts = read_nl()
     
+    # Get number of phases specified
+    n_phase = len( nml_opts['phase_hr'] )
+    
     # Thresholds (target temps; TT) and time dependencies
     # For monophase configuration
-    if nml_opts["n_phase"] == 1:
+    if n_phase == 1:
         TT = nml_opts["phase_T"]
     # For the final phase (because it sometimes spans midnight)
     elif (hr == nml_opts["phase_hr"][0] and mn < nml_opts["phase_min"][0]) or \
@@ -17,8 +20,8 @@ def query( hr, mn, T, outpt ):
           hr > nml_opts["phase_hr"][-1] or hr < nml_opts["phase_hr"][0]:
         TT = nml_opts["phase_T"][-1]
     # For all phases except the final
-    elif nml_opts["n_phase"] > 2:
-        for phase in range( nml_opts["n_phase"]-1 ):
+    elif n_phase > 2:
+        for phase in range( n_phase-1 ):
             if ( ( 
                    hr > nml_opts["phase_hr"][phase] or
                   (hr == nml_opts["phase_hr"][phase] and mn >= nml_opts["phase_min"][phase])

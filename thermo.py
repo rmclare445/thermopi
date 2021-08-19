@@ -5,7 +5,7 @@ import thermo_query as tq
 import write_log    as wl
 #import email_notify as en
 from   tools        import *
-from   read_nl      import get_freq
+from   read_nl      import read_nl
 
 # Set up GPIO board
 GPIO.setwarnings(False)
@@ -31,7 +31,7 @@ try:
         lt = time.localtime( )
         
         # Check namelist for frequency
-        freq = get_freq( )
+        freq = read_nl( )['freq']
         
         # Discard data with unreasonably high humidity (indicator of bad data)
         if hum <= 104.:
