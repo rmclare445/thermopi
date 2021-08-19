@@ -1,4 +1,4 @@
-# thermopi v2.0
+# thermopi v2.1
 Smart thermostat with Raspberry Pi
 
 I got annoyed with my ordinary thermostat because I wanted different temperature targets at different times of day.  After determining that replacing it with a relay module governed by a Raspberry Pi would be simple, I set about making my own smart thermostat.  The possibilities for new features are endless and I'm definitely open to suggestions.  Now my wall is ugly where my naked Raspberry Pi Zero W hangs idly by its power cord near the relay, supporting the thermometer's breadboard by jumper wire.  So the next big step will be to build some housing for it.  Other feature ideas are hidden throughout the code in comments.
@@ -15,14 +15,42 @@ I got annoyed with my ordinary thermostat because I wanted different temperature
   
 - Diagram forthcoming
 
-## Usage
-
-With peripherals in place, modules acquired, and the namelist filled out, this should get things going:
+## Preparation
 
 ```bash
-sudo python3 thermo.py
+sudo apt-get update
 ```
 
-You may wish to run this in the background or [on a separate screen](https://www.howtogeek.com/662422/how-to-use-linuxs-screen-command/).  You can periodically check the state.log for data and can plot from it.  (I'll add a plotting script at some point, too).
+```bash
+sudo apt-get upgrade
+```
 
-I'll be sure to add more instruction on how to use the namelist if anyone has trouble with it.
+```bash
+sudo pip3 install --upgrade setuptools
+```
+
+```bash
+sudo pip3 install Adafruit_DHT
+```
+
+```bash
+sudo pip3 install pyyaml
+```
+
+```bash
+sudo apt-get install screen
+```
+
+```bash
+sudo chmod 755 thermopi/thermo.sh
+```
+
+## Usage
+
+```bash
+cd thermopi
+```
+
+```bash
+sudo ./thermo.sh
+```
