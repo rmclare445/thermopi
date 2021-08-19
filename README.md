@@ -45,7 +45,7 @@ sudo apt-get install screen
 sudo chmod 755 thermopi/thermo.sh
 ```
 
-You may want to use crontab to run thermopi at boot in case of a loss of power.  Just add ```@reboot sudo <working_directory>/thermopi/thermo.sh``` to your crontab file as demonstrated at https://www.tomshardware.com/how-to/run-script-at-boot-raspberry-pi
+You may want to use crontab to run thermopi at boot in case of a loss of power.  Just add ```@reboot cd <working_directory>/thermopi; sudo ./thermo.sh``` to your crontab file as demonstrated at https://www.tomshardware.com/how-to/run-script-at-boot-raspberry-pi
 
 ## Usage
 
