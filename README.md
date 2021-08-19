@@ -45,7 +45,11 @@ sudo apt-get install screen
 sudo chmod 755 thermopi/thermo.sh
 ```
 
+You may want to use crontab to run thermopi at boot in case of a loss of power.  Just add ```@reboot sudo <working_directory>/thermopi/thermo.sh``` to your crontab file as demonstrated at https://www.tomshardware.com/how-to/run-script-at-boot-raspberry-pi
+
 ## Usage
+
+To begin operation (if you haven't added the boot command to crontab):
 
 ```bash
 cd thermopi
@@ -53,4 +57,17 @@ cd thermopi
 
 ```bash
 sudo ./thermo.sh
+```
+
+You can access information about the job and screen by using the following:
+
+```bash
+sudo screen -list
+sudo screen -r
+```
+
+You can confirm that your thermostat is running by checking the state.log.  The most recent entries will reflect the time of the last scan.  If state.log does not exist, then the script has not been executed properly.
+
+```bash
+tail state.log
 ```
