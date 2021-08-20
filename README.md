@@ -17,32 +17,37 @@ I got annoyed with my ordinary thermostat because I wanted different temperature
 
 ## Preparation
 
+Make sure your system is up-to-date.
+
 ```bash
 sudo apt-get update
-```
-
-```bash
 sudo apt-get upgrade
-```
-
-```bash
 sudo pip3 install --upgrade setuptools
 ```
 
-```bash
-sudo pip3 install Adafruit_DHT
-```
+Install necessary libraries.
 
 ```bash
+sudo pip3 install Adafruit_DHT
 sudo pip3 install pyyaml
 ```
+
+Install screen so you can run it continuously in the background (optional, I guess).
 
 ```bash
 sudo apt-get install screen
 ```
 
+Clone this repository.
+
 ```bash
-sudo chmod 755 thermopi/thermo.sh
+sudo git clone https://github.com/rmclare445/thermopi.git
+```
+
+Allow execution of thermo script (for running thermo.py on a detched screen; optional).
+
+```bash
+sudo chmod +x thermopi/thermo.sh
 ```
 
 You may want to use crontab to run thermopi at boot in case of a loss of power.  Just add ```@reboot cd <working_directory>/thermopi; sudo ./thermo.sh``` to your crontab file as demonstrated at https://www.tomshardware.com/how-to/run-script-at-boot-raspberry-pi
@@ -53,9 +58,6 @@ To begin operation (if you haven't added the boot command to crontab):
 
 ```bash
 cd thermopi
-```
-
-```bash
 sudo ./thermo.sh
 ```
 
