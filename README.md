@@ -90,9 +90,9 @@ All options for operation of the furnace can be configured by altering the ```na
 - ```phase_min```: Specifies the starting minute of respective phase.
 - ```phase_T```: Specifies the target temperature of respective phase.
 
-The next two options are the tolerances.  Generally you want to undershoot your target temperature before running the furnace and/or overshoot it before shutdown.  This prevents the furnace from getting toggled too often.
+The next two options are the tolerances.  Generally you want to undershoot your target temperature before running the furnace and/or overshoot it before shutoff.  This prevents the furnace from switching on and off too often.
 
 - ```up_tol```: The amount above the target temperature to shutoff the furnace.
 - ```dn_tol```: The amount below the target temperature to trigger the furnace.
 
-The final option if frequency (```freq```).  It is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
+The final option is frequency (```freq```).  It is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
