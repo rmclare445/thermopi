@@ -9,6 +9,8 @@ def query( hr, mn, T, outpt ):
     
     # Get number of phases specified
     n_phase = len( nml_opts['phase_hr'] )
+    if n_phase !=  len( nml_opts['phase_min'] ) or len( n_phase !=  nml_opts['phase_T'] ):
+        raise RuntimeWarning( 'WARNING: Phase configuration mismatch! \n Namelist is incorrectly filled and thermopi may not function properly.' )
     
     # Thresholds (target temps; TT) and time dependencies
     # For monophase configuration
