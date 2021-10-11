@@ -84,7 +84,7 @@ tail state.log
 
 ## Configuring Operation
 
-All options for operation of the furnace can be configured by altering the ```namelist.yaml``` file.  The namelist is read in every cycle.  The first three options within the namelist are the phase configuration options.  There should be an equal number of each (up to 1440) which determines the total number of phases.
+All options for operation of the furnace can be configured by altering the ```namelist.yaml``` file.  The namelist is read in every cycle and can be adjusted during operation.  The first three options within the namelist are the phase configuration options.  There should be an equal number of each (up to 1440) which determines the total number of phases.
 
 - ```phase_hr```: Specifies the starting hour of a new phase (must use 24-hour format).
 - ```phase_min```: Specifies the starting minute of respective phase.
