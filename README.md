@@ -5,6 +5,9 @@ I got annoyed with my ordinary thermostat because I wanted different temperature
 
 ## Physical configuration
 
+- Use as Raspberry Pi Zero W configured to your home WiFi network.
+  - Enable SSH (then change user/password for security).
+
 - Use a single relay module connecting furnace signal wire in the N/O position.
   - Relay module input signal wire is currently configured to GPIO18 on RPi.
   - https://www.amazon.com/HiLetgo-Channel-Module-Isolation-Support/dp/B00LW2H5GC/
