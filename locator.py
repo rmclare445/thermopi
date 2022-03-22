@@ -11,13 +11,12 @@ from info.keys import *
 
 authorization_token = "cFJFcXVnYWJSZXRyZTRFc3RldGhlcnVmcmVQdW1hbUV4dWNyRUh1YzptM2ZydXBSZXRSZXN3ZXJFQ2hBUHJFOTZxYWtFZHI0Vg=="
 
-Re   = 6371
-home = (36.6285, -121.9352)
+Re   = 6371     # Earth radius in km
 
 def dist(lat1, lon1, lat2, lon2):
+    # Euclidean distance along Earth surface in km
     d = np.sqrt((lat2-lat1)**2 + (lon2-lon1)**2)
     return (d/360.) * 2 * np.pi * Re
-
 
 class life360:
     
@@ -44,7 +43,6 @@ class life360:
         return r.json()
 
     def authenticate(self):
-        
 
         url = self.base_url + self.token_url
         params = {
