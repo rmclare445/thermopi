@@ -99,3 +99,6 @@ The next two options are the tolerances.  Generally you want to undershoot your 
 - ```dn_tol```: The amount below the target temperature to trigger the furnace.
 
 The final option is frequency (```freq```).  It is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
+
+### Locator configuration
+All in due time, my pretties.
