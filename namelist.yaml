@@ -1,10 +1,17 @@
 ---
 # Phase configuration
-phase_hr:  [  8, 11, 22 ]
-phase_min: [ 20, 00, 30 ]
-phase_T:   [ 70, 68, 65 ]
+phase_hr:  [  6,  7,  8, 23 ]
+phase_min: [ 50, 20, 30, 00 ]
+phase_T:   [ 69, 66, 70, 65 ]
 # Tolerances - The 'wiggle room' about the target temps (deg F)
 up_tol: 1.
-dn_tol: 1.
-# Data frequency (in units of per second)
+dn_tol: 1.5
+# Data frequency (in units of per second) (locator add ~3 extra seconds to cycle)
 freq: 0.1
+# Locator information
+## Locator on/off
+locator: True
+## Radius in km
+radius: 3
+## Minimum temp while outside radius
+away_T: 63
