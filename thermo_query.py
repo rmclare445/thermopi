@@ -43,8 +43,12 @@ def query( hr, mn, T, outpt ):
 
     # Locator
     if nml_opts['locator']:
-        if get_min_dist() > nml_opts['radius']:
-            TT = nml_opts['away_T']
+        try:
+            if get_min_dist() > nml_opts['radius']:
+                TT = nml_opts['away_T']
+        except:
+            # Should write to error log
+            print("Unable to retrieve location info!") 
 
     # If output is True/False, check threshold
     if outpt:
