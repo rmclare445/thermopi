@@ -1,8 +1,11 @@
 from read_nl import read_nl
 from locator import get_min_dist
+from write_log import write_err
 
-def query( hr, mn, T, outpt ):
-    # Input: hour, minute, temperature, current relay status
+def query( lt, T, outpt ):
+    # Input: local time, temperature, current relay status
+    hr = lt[3]
+    mn = lt[4]
 
     # Reads namelist every time, allowing user to
     #  change settings without halting operation
@@ -47,8 +50,7 @@ def query( hr, mn, T, outpt ):
             if get_min_dist() > nml_opts['radius']:
                 TT = nml_opts['away_T']
         except:
-            # Should write to error log
-            print("Unable to retrieve location info!") 
+            write_err("Unable to retrieve location data!", lt)
 
     # If output is True/False, check threshold
     if outpt:

@@ -1,3 +1,4 @@
+import os
 import time
 import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
@@ -5,6 +6,12 @@ import thermo_query as tq
 import write_log    as wl
 from   tools        import *
 from   read_nl      import read_nl
+
+# Remove previous error log
+try:
+    os.remove("log.err")
+except:
+    pass
 
 # Set up GPIO board
 GPIO.setwarnings(False)
@@ -19,43 +26,45 @@ log_stat = "F"
 temps = [0] * 4
 
 # Write header to log
-wl.write_log(" T(F) | H(%) | Time     | S")
+wl.write_state(" Time, T(F), H(%), Status")
 
 try:
     while True:
-    
+
         # Retrieve humidity, temperature, and local time
         hum, temp = ad.read_retry(ad.DHT22, 4)
         temp = C_to_F( temp )
         lt = time.localtime( )
-        
+
         # Check namelist for frequency
         freq = read_nl( )['freq']
-        
+
         # Discard data with unreasonably high humidity (indicator of bad data)
         if hum <= 104.:
             # Ensure perturbation magnitude is reasonable (don't react to bad data)
             if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
-                
+
                 # Check whether conditions warrant a change in relay status
-                stat = tq.query( lt[3], lt[4], temp, GPIO.input(18) )
-                
+                stat = tq.query( lt, temp, GPIO.input(18) )
+
                 # If status change is warranted, change status
                 if stat is not None:
                     GPIO.output(18, stat)
                     log_stat = "T" if stat else "F"
-            
+                    wl.write_ops( stat, lt, temp )
+
             # Write state and times to log
-            ## Need to add date to log
-            wl.write_log(" %0.1f | %02d   | %02d:%02d:%02d | %s" \
-                        % ( temp, hum, lt[3], lt[4], lt[5], log_stat ))
-        
+            ## Need to add dtg to log
+            wl.write_state(" %02d:%02d:%02d, %0.1f, %02d, %s" \
+                        % ( lt[3], lt[4], lt[5], temp, hum, log_stat ))
+
             # Add new temp, delete oldest even if perturbation magnitude is high
             temps = update( temp, temps )
-            
+
         time.sleep(1/freq)
-        
+
 finally:
     GPIO.output(18, False)
     GPIO.cleanup( )
-    wl.write_log("thermopi terminated")
+    #wl.write_ops(
+    wl.write_err("thermopi terminated", lt)
