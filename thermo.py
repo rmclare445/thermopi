@@ -25,9 +25,6 @@ log_stat = "F"
 # Empty list for averaging temperatures
 temps = [0] * 4
 
-# Write header to log
-wl.write_state(" Time, T(F), H(%), Status")
-
 try:
     while True:
 
@@ -54,9 +51,7 @@ try:
                     wl.write_ops( stat, lt, temp )
 
             # Write state and times to log
-            ## Need to add dtg to log
-            wl.write_state(" %02d:%02d:%02d, %0.1f, %02d, %s" \
-                        % ( lt[3], lt[4], lt[5], temp, hum, log_stat ))
+            wl.write_state( temp, hum, log_stat, lt )
 
             # Add new temp, delete oldest even if perturbation magnitude is high
             temps = update( temp, temps )

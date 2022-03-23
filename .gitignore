@@ -1,5 +1,7 @@
 __pycache__
-info/
+info/keys.py
+info/mail_info.py
+info/__pycache__
 email_notify.py
 state.log
 state.log*
