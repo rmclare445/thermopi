@@ -18,4 +18,4 @@ def write_ops( stat, lt, temp ):
     dtg, htg = dtg_htg( lt )
     entry = "Furnace on" if stat else "Furnace off"     # change of status entry
     with open("log.ops_%s" % dtg, "a") as f:
-        f.write( "%s - %s, room temp %s\n" % (htg, entry, temp) )
+        f.write( "%s - %s, room temp %0.1f\n" % (htg, entry, temp) )
