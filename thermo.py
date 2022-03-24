@@ -1,4 +1,3 @@
-import os
 import time
 import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
@@ -6,12 +5,6 @@ import thermo_query as tq
 import write_log    as wl
 from   tools        import *
 from   read_nl      import read_nl
-
-# Remove previous error log
-try:
-    os.remove("log.err")
-except:
-    pass
 
 # Set up GPIO board
 GPIO.setwarnings(False)

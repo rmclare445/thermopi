@@ -1,5 +1,11 @@
 import os
 
+# Remove previous error log on startup
+try:
+    os.remove("log.err")
+except:
+    pass
+
 def dtg_htg( lt ):
     dtg = "%04d%02d%02d" % ( lt[0], lt[1], lt[2] )      # date time group
     htg = "%02d:%02d:%02d" % ( lt[3], lt[4], lt[5] )    # hour time group
