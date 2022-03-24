@@ -48,7 +48,7 @@ try:
                 if stat is not None:
                     GPIO.output(18, stat)
                     log_stat = "T" if stat else "F"
-                    wl.write_ops( stat, lt, temp )
+                    wl.write_ops( lt, stat, temp )
 
             # Write state and times to log
             wl.write_state( temp, hum, log_stat, lt )
@@ -61,5 +61,4 @@ try:
 finally:
     GPIO.output(18, False)
     GPIO.cleanup( )
-    #wl.write_ops(
-    wl.write_err("thermopi terminated", lt)
+    wl.write_ops(lt, bulletin="thermopi terminated")
