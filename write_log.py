@@ -25,11 +25,11 @@ def write_err( entry, lt ):
 def write_ops( lt, status=None, T=None, bulletin=None ):
     dtg, htg = dtg_htg( lt )
     entry = "Furnace on, " if status else "Furnace off, "     # change of status entry
-    entry = entry + "room temp %01f" % T
+    entry = entry + "room temp %0.1f" % T
     if bulletin is not None:
         entry = bulletin
     try:
-        with open("ops/log.ops_%s" % dtg, "a") as f
+        with open("ops/log.ops_%s" % dtg, "a") as f:
             f.write( "%s - %s\n" % (htg, entry) )
     except:
         os.mkdir("ops")
