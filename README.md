@@ -79,15 +79,15 @@ sudo screen -list
 sudo screen -r
 ```
 
-You can confirm that your thermostat is running by checking the state.log.  The most recent entries will reflect the time of the last scan.  If state.log does not exist, then the script has not been executed properly.
+You can confirm that your thermostat is running by checking the state log.  The most recent entries will reflect the time and state of the last cycle.  If it does not exist, then the script has not been executed properly.
 
 ```bash
-tail state.log
+tail logs/log.state
 ```
 
 ## Configuring Operation
 
-All options for operation of the furnace can be configured by altering the ```namelist.yaml``` file.  The namelist is read in every cycle and can be adjusted during operation.  The first three options within the namelist are the phase configuration options.  There should be an equal number of each (up to 1440) which determines the total number of phases.
+All options for operation of the furnace can be configured by altering the ```thermopi/namelist.yaml``` file.  The namelist is read in every cycle and can be adjusted during operation.  The first three options within the namelist are the phase configuration options.  There should be an equal number of each (up to 1440) which determines the total number of phases.
 
 - ```phase_hr```: Specifies the starting hour of a new phase (must use 24-hour format).
 - ```phase_min```: Specifies the starting minute of respective phase.
@@ -98,7 +98,21 @@ The next two options are the tolerances.  Generally you want to undershoot your 
 - ```up_tol```: The amount above the target temperature to shutoff the furnace.
 - ```dn_tol```: The amount below the target temperature to trigger the furnace.
 
-The final option is frequency (```freq```).  It is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
+```freq``` is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
 
 ### Locator configuration
-All in due time, my pretties.
+
+Before enabling the locator, you must first specify your Life360 username, password, and the lat/lon of your house (in decimal degrees).  A template is provided in ```info/example_keys.py```.  Here is arecommended course of aciton:
+
+```bash
+cd thermopi/info
+sudo cp example_keys.py keys.py
+```
+
+Use an editor to configure the variables in ```keys.py```.
+
+Now, back in ```thermopi/namelist.yaml```, we can configure out locator settings.
+
+- ```locator```: Set to True for on and False for off.
+- ```radius```: The radial distance (in km) from your house within which normal operation will take place.
+-  ```away_T```: The minimum target temperature for when you are outside of the radius.
