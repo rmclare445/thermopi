@@ -111,8 +111,8 @@ sudo cp example_keys.py keys.py
 
 Use an editor to configure the variables in ```keys.py```.
 
-Now, back in ```thermopi/namelist.yaml```, we can configure out locator settings.
+Now, back in ```thermopi/namelist.yaml```, we can configure the locator settings.
 
-- ```locator```: Set to True for on and False for off.
+- ```locator```: Set to *True* for on and *False* for off.
 - ```radius```: The radial distance (in km) from your house within which normal operation will take place.
 -  ```away_T```: The minimum target temperature for when you are outside of the radius.
