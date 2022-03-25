@@ -49,7 +49,7 @@ Install screen so you can run it continuously in the background.
 sudo apt-get install screen
 ```
 
-Allow execution of thermo script (for running thermo.py on a detched screen).
+Allow execution of thermo script (for running thermo.py on a detached screen).
 
 ```bash
 sudo chmod +x thermopi/thermo.sh
