@@ -1,3 +1,3 @@
 username = "life360_username"
 password = "life360_password"
-home     = (39.729, -121.842)
+home     = (39.7291, -121.8426)
