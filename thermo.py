@@ -60,8 +60,8 @@ finally:
     GPIO.output(18, False)
     GPIO.cleanup( )
     # Close and redirect output
+    wl.write_ops(lt, bulletin="thermopi terminated")
     sys.stdout.close()
     sys.stdout = sys.__stdout__
     sys.stderr.close()
     sys.stderr = sys.__stderr__
-    wl.write_ops(lt, bulletin="thermopi terminated")
