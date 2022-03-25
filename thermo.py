@@ -1,3 +1,4 @@
+import sys
 import time
 import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
@@ -19,6 +20,9 @@ log_stat = "F"
 temps = [0] * 4
 
 try:
+    # Redirect system output to logs
+    sys.stdout = open('logs/log.stdout', 'w')
+    sys.stderr = open('logs/log.stderr', 'w')
     while True:
 
         # Retrieve humidity, temperature, and local time
@@ -52,6 +56,12 @@ try:
         time.sleep(1/freq)
 
 finally:
+    # Clear GPIO config
     GPIO.output(18, False)
     GPIO.cleanup( )
+    # Close and redirect output
+    sys.stdout.close()
+    sys.stdout = sys.__stdout__
+    sys.stderr.close()
+    sys.stderr = sys.__stderr__
     wl.write_ops(lt, bulletin="thermopi terminated")
