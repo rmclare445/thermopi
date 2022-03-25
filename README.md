@@ -102,7 +102,7 @@ The next two options are the tolerances.  Generally you want to undershoot your 
 
 ### Locator configuration
 
-Before enabling the locator, you must first specify your Life360 username, password, and the (lat,lon) of your house (in decimal degrees) in the file ```info/keys.py```.  A template is provided in ```info/example_keys.py```.  Here is arecommended course of aciton:
+Before enabling the locator, you must first specify your Life360 username, password, and the (lat,lon) of your house (in decimal degrees) in the file ```thermopi/info/keys.py```.  A template is provided in ```therompi/info/example_keys.py```.  Here is arecommended course of aciton:
 
 ```bash
 cd thermopi/info
