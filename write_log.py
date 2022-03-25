@@ -1,8 +1,15 @@
 import os
 
-# Remove previous error log on startup
+# Make logs directory
 try:
-    os.remove("log.err")
+    os.mkdir('logs')
+except:
+    pass
+
+# Remove previous system logs on startup
+try:
+    os.remove("logs/log.stdout")
+    os.remove("logs/log.stderr")
 except:
     pass
 
@@ -12,15 +19,16 @@ def dtg_htg( lt ):
     return dtg, htg
 
 def write_state( temp, hum, stat, lt ):
+    # Write to continuous state log
     dtg, htg = dtg_htg( lt )
     entry = "%s, %s, %0.1f, %02d, %s\n" % (dtg, htg, temp, hum, stat)
-    with open("log.state", "a") as f:
+    with open("logs/log.state", "a") as f:
         f.write( entry )
 
-def write_err( entry, lt ):
-    dtg, htg = dtg_htg( lt )
-    with open("log.err", "a") as f:
-        f.write( "%s, %s - %s\n" % (dtg, htg, entry) )
+#def write_err( entry, lt ):
+#    dtg, htg = dtg_htg( lt )
+#    with open("log.err", "a") as f:
+#        f.write( "%s, %s - %s\n" % (dtg, htg, entry) )
 
 def write_ops( lt, status=None, T=None, bulletin=None ):
     dtg, htg = dtg_htg( lt )
@@ -28,9 +36,5 @@ def write_ops( lt, status=None, T=None, bulletin=None ):
     entry = entry + "room temp %0.1f" % T
     if bulletin is not None:
         entry = bulletin
-    try:
-        with open("ops/log.ops_%s" % dtg, "a") as f:
-            f.write( "%s - %s\n" % (htg, entry) )
-    except:
-        os.mkdir("ops")
-        write_ops(stat, lt, temp, bulletin)
+    with open("logs/log.ops_%s" % dtg, "a") as f:
+        f.write( "%s - %s\n" % (htg, entry) )
