@@ -25,16 +25,12 @@ def write_state( temp, hum, stat, lt ):
     with open("logs/log.state", "a") as f:
         f.write( entry )
 
-#def write_err( entry, lt ):
-#    dtg, htg = dtg_htg( lt )
-#    with open("log.err", "a") as f:
-#        f.write( "%s, %s - %s\n" % (dtg, htg, entry) )
-
 def write_ops( lt, status=None, T=None, bulletin=None ):
     dtg, htg = dtg_htg( lt )
-    entry = "Furnace on, " if status else "Furnace off, "     # change of status entry
-    entry = entry + "room temp %0.1f" % T
     if bulletin is not None:
         entry = bulletin
+    else:
+        entry = "Furnace on, " if status else "Furnace off, "
+        entry = entry + "room temp %0.1f" % T
     with open("logs/log.ops_%s" % dtg, "a") as f:
         f.write( "%s - %s\n" % (htg, entry) )
