@@ -25,36 +25,39 @@ try:
     sys.stderr = open('logs/log.stderr', 'w')
     while True:
 
-        # Retrieve humidity, temperature, and local time
-        hum, temp = ad.read_retry(ad.DHT22, 4)
-        temp = C_to_F( temp )
-        lt = time.localtime( )
+        try:
+            # Retrieve humidity, temperature, and local time
+            hum, temp = ad.read_retry(ad.DHT22, 4)
+            temp = C_to_F( temp )
+            lt = time.localtime( )
 
-        # Check namelist for frequency
-        freq = read_nl( )['freq']
+            # Check namelist for frequency
+            freq = read_nl( )['freq']
 
-        # Discard data with unreasonably high humidity (indicator of bad data)
-        if hum <= 104.:
-            # Ensure perturbation magnitude is reasonable (don't react to bad data)
-            if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
+            # Discard data with unreasonably high humidity (indicator of bad data)
+            if hum <= 104.:
+                # Ensure perturbation magnitude is reasonable (don't react to bad data)
+                if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
 
-                # Check whether conditions warrant a change in relay status
-                stat = tq.query( lt, temp, GPIO.input(18) )
+                    # Check whether conditions warrant a change in relay status
+                    stat = tq.query( lt, temp, GPIO.input(18) )
 
-                # If status change is warranted, change status
-                if stat is not None:
-                    GPIO.output(18, stat)
-                    log_stat = "T" if stat else "F"
-                    wl.write_ops( lt, stat, temp )
+                    # If status change is warranted, change status
+                    if stat is not None:
+                        GPIO.output(18, stat)
+                        log_stat = "T" if stat else "F"
+                        wl.write_ops( lt, stat, temp )
 
-            # Write state and times to log
-            wl.write_state( temp, hum, log_stat, lt )
+                # Write state and times to log
+                wl.write_state( temp, hum, log_stat, lt )
 
-            # Add new temp, delete oldest even if perturbation magnitude is high
-            temps = update( temp, temps )
+                # Add new temp, delete oldest even if perturbation magnitude is high
+                temps = update( temp, temps )
 
-        time.sleep(1/freq)
+            time.sleep(1/freq)
 
+        except Exception as e: print(e)
+            
 finally:
     # Clear GPIO config
     GPIO.output(18, False)
@@ -62,6 +65,6 @@ finally:
     # Close and redirect output
     wl.write_ops(lt, bulletin="thermopi terminated")
     sys.stdout.close()
-    sys.stdout = sys.__stdout__
+    #sys.stdout = sys.__stdout__
     sys.stderr.close()
-    sys.stderr = sys.__stderr__
+    #sys.stderr = sys.__stderr__
