@@ -66,7 +66,7 @@ cd thermopi
 sudo ./thermo.sh
 ```
 
-You can manually operate the thermostat by calling the Python script directly:
+Alternatively, you can manually operate the thermostat by calling the Python script directly:
 
 ```bash
 sudo python3 thermo.py
