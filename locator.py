@@ -7,8 +7,11 @@ Mostly copied from Harper Reed at https://github.com/harperreed/life360-python
 import requests
 import json
 import numpy as np
-from info.keys import *
-
+try:
+    from info.keys import *
+except ImportError:
+    print( "Cannot import from info.keys! \nPlease ensure that you have created and configured the info/keys.py module if you would like to use the locator." )
+    
 authorization_token = "cFJFcXVnYWJSZXRyZTRFc3RldGhlcnVmcmVQdW1hbUV4dWNyRUh1YzptM2ZydXBSZXRSZXN3ZXJFQ2hBUHJFOTZxYWtFZHI0Vg=="
 
 Re   = 6371     # Earth radius in km
