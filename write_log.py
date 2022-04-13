@@ -37,7 +37,7 @@ def write_state( temp, hum, stat, lt, gsheet ):
             gc = pygsheets.authorize(client_secret=cspath)
             sh = gc.open(sheetname)
             wks = sh.sheet1
-            wks.update_values('A2', [[dtg, htg, "%0.1f"%temp, hum, stat]])
+            wks.update_values('A2', [[dtg, htg, "%0.1f"%temp, "%02d"%hum, stat]])
         except Exception as e:
             print( "pygsheet error!" )
             print( e )
