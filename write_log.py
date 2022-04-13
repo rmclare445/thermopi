@@ -1,4 +1,12 @@
 import os
+from info.keys import cspath
+try:
+    import pygsheets
+except ImportError:
+    print("Could not import pygsheets!")
+
+# Default Google Sheets file
+sheetname = 'log.state'
 
 # Make logs directory
 try:
@@ -18,12 +26,21 @@ def dtg_htg( lt ):
     htg = "%02d:%02d:%02d" % ( lt[3], lt[4], lt[5] )    # hour time group
     return dtg, htg
 
-def write_state( temp, hum, stat, lt ):
+def write_state( temp, hum, stat, lt, gsheet ):
     # Write to continuous state log
     dtg, htg = dtg_htg( lt )
     entry = "%s, %s, %0.1f, %02d, %s\n" % (dtg, htg, temp, hum, stat)
     with open("logs/log.state", "a") as f:
         f.write( entry )
+    if gsheet:
+        try:
+            gc = pygsheets.authorize(client_secret=cspath)
+            sh = gc.open(sheetname)
+            wks = sh.sheet1
+            wks.update_values('A2', [[dtg, htg, temp, hum, stat]])
+        except Exception as e:
+            print( "pygsheet error!" )
+            print( e )
 
 def write_ops( lt, status=None, T=None, bulletin=None ):
     dtg, htg = dtg_htg( lt )
