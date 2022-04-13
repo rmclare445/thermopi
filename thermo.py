@@ -25,7 +25,7 @@ try:
     sys.stderr = open('logs/log.stderr', 'w')
     while True:
         
-        nl_opts = rean_nl()
+        nl_opts = read_nl()
 
         try:
             # Retrieve humidity, temperature, and local time
