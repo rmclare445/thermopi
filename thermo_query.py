@@ -1,14 +1,14 @@
-from read_nl import read_nl
+#from read_nl import read_nl
 from locator import get_min_dist
 
-def query( lt, T, outpt ):
+def query( lt, T, outpt, nml_opts ):
     # Input: local time, temperature, current relay status
     hr = lt[3]
     mn = lt[4]
 
     # Reads namelist every time, allowing user to
     #  change settings without halting operation
-    nml_opts = read_nl()
+    #nml_opts = read_nl()
 
     # Get number of phases specified
     n_phase = len( nml_opts['phase_hr'] )
