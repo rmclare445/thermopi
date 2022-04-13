@@ -6,6 +6,7 @@ import thermo_query as tq
 import write_log    as wl
 from   tools        import *
 from   read_nl      import read_nl
+from   gsheets      import gsheet_entries
 
 # Set up GPIO board
 GPIO.setwarnings(False)
@@ -24,7 +25,6 @@ try:
     sys.stdout = open('logs/log.stdout', 'w')
     sys.stderr = open('logs/log.stderr', 'w')
     while True:
-        
         nl_opts = read_nl()
 
         try:
@@ -52,7 +52,10 @@ try:
                         wl.write_ops( lt, stat, temp )
 
                 # Write state and times to log
-                wl.write_state( temp, hum, log_stat, lt, nl_opts['gsheet'] )
+                wl.write_state( lt, temp, hum, log_stat )
+                # Update remote log
+                if nl_opts['gsheet']:
+                    gsheet_entries( )
 
                 # Add new temp, delete oldest even if perturbation magnitude is high
                 temps = update( temp, temps )
@@ -60,7 +63,7 @@ try:
             time.sleep(1/freq)
 
         except Exception as e: print(e)
-            
+
 finally:
     # Clear GPIO config
     GPIO.output(18, False)
@@ -68,6 +71,4 @@ finally:
     # Close and redirect output
     wl.write_ops(lt, bulletin="thermopi terminated")
     sys.stdout.close()
-    #sys.stdout = sys.__stdout__
     sys.stderr.close()
-    #sys.stderr = sys.__stderr__
