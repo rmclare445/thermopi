@@ -7,6 +7,11 @@ except ImportError:
 
 # Default Google Sheets file
 sheetname = 'log.state'
+# Authorize Google API connection
+try:
+    gc = pygsheets.authorize(client_secret=cspath)
+except:
+    print( "Sheets auth failed!" )
 
 # Make logs directory
 try:
@@ -34,7 +39,7 @@ def write_state( temp, hum, stat, lt, gsheet ):
         f.write( entry )
     if gsheet:
         try:
-            gc = pygsheets.authorize(client_secret=cspath)
+            #gc = pygsheets.authorize(client_secret=cspath)
             sh = gc.open(sheetname)
             wks = sh.sheet1
             wks.update_values('A2', [[dtg, htg, "%0.1f"%temp, "%02d"%hum, stat]])
