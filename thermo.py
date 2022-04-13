@@ -24,15 +24,18 @@ try:
     sys.stdout = open('logs/log.stdout', 'w')
     sys.stderr = open('logs/log.stderr', 'w')
     while True:
+        
+        nl_opts = rean_nl()
 
         try:
             # Retrieve humidity, temperature, and local time
             hum, temp = ad.read_retry(ad.DHT22, 4)
-            temp = C_to_F( temp )
+            if nl_opts['celsius'] == False:
+                temp = C_to_F( temp )
             lt = time.localtime( )
 
             # Check namelist for frequency
-            freq = read_nl( )['freq']
+            freq = nl_opts['freq']
 
             # Discard data with unreasonably high humidity (indicator of bad data)
             if hum <= 104.:
@@ -49,7 +52,7 @@ try:
                         wl.write_ops( lt, stat, temp )
 
                 # Write state and times to log
-                wl.write_state( temp, hum, log_stat, lt )
+                wl.write_state( temp, hum, log_stat, lt, nl_opts['gsheet'] )
 
                 # Add new temp, delete oldest even if perturbation magnitude is high
                 temps = update( temp, temps )
