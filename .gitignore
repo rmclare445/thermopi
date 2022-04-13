@@ -3,6 +3,4 @@ info/keys.py
 info/mail_info.py
 info/__pycache__
 info/*.json
-email_notify.py
-log.*
-state.log*
+logs/*

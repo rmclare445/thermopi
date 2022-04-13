@@ -18,7 +18,7 @@ def dtg_htg( lt ):
     htg = "%02d:%02d:%02d" % ( lt[3], lt[4], lt[5] )    # hour time group
     return dtg, htg
 
-def write_state( temp, hum, stat, lt ):
+def write_state( lt, temp, hum, stat ):
     # Write to continuous state log
     dtg, htg = dtg_htg( lt )
     entry = "%s, %s, %0.1f, %02d, %s\n" % (dtg, htg, temp, hum, stat)
