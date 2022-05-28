@@ -1,5 +1,4 @@
-import sys
-import time
+import sys, time
 import RPi.GPIO     as GPIO
 import Adafruit_DHT as ad
 import thermo_query as tq
@@ -65,7 +64,8 @@ try:
 
                 # Add new temp, delete oldest even if perturbation magnitude is high
                 temps = update( temp, temps )
-
+            
+            # Wait for next cycle according to specified frequency
             time.sleep(1/nml_opts['freq'])
 
         except Exception as e: print(e)
@@ -77,6 +77,4 @@ finally:
     # Close and redirect output
     wl.write_ops(lt, bulletin="thermopi terminated")
     sys.stdout.close()
-    #sys.stdout = sys.__stdout__
     sys.stderr.close()
-    #sys.stderr = sys.__stderr__
