@@ -37,9 +37,6 @@ try:
             temp = C_to_F( temp )
             lt = time.localtime( )
 
-            # Check namelist for frequency
-            freq = nml_opts['freq']
-
             # Discard data with unreasonably high humidity (indicator of bad data)
             if hum <= 104.:
                 # Ensure perturbation magnitude is reasonable (don't react to bad data)
@@ -69,7 +66,7 @@ try:
                 # Add new temp, delete oldest even if perturbation magnitude is high
                 temps = update( temp, temps )
 
-            time.sleep(1/freq)
+            time.sleep(1/nml_opts['freq'])
 
         except Exception as e: print(e)
             
