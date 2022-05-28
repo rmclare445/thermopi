@@ -78,6 +78,7 @@ class life360:
         mindist = 1e3
         circles = self.get_circles()
         id = circles[0]['id']
+        circle = self.get_circle(id)
         for m in circle['members']:
             lat = m['location']['latitude']
             lon = m['location']['longitude']
