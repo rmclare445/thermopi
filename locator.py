@@ -72,23 +72,20 @@ class life360:
         authheader="bearer " + self.access_token
         r = self.make_request(url=url, method='GET', authheader=authheader)
         return r
-
-def get_min_dist():
-    api = life360()
-    if api.authenticate():
-        circles = api.get_circles()
+        
+    def get_min_dist(self):
+        ''' Returns distance in kilometers of nearest member '''
+        mindist = 1e3
+        circles = self.get_circles()
         id = circles[0]['id']
-        circle = api.get_circle(id)
         for m in circle['members']:
-            if m['firstName'] == "Hannah":
-                lat = m['location']['latitude']
-                lon = m['location']['longitude']
-                dh = dist(home[0], home[1], float(lat), float(lon))
-            if m['firstName'] == "Ryan":
-                lat = m['location']['latitude']
-                lon = m['location']['longitude']
-                dr = dist(home[0], home[1], float(lat), float(lon))
-        return min(dh, dr)
+            lat = m['location']['latitude']
+            lon = m['location']['longitude']
+            mindist = min( mindist, dist( home[0], home[1], float(lat), float(lon) ) )
+        return mindist
+
 
 if __name__ == "__main__":
-    print(get_min_dist())
+    api = life360()
+    if api.authenticate():
+        print( api.get_min_dist() )

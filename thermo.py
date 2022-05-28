@@ -19,6 +19,9 @@ log_stat = "F"
 # Empty list for averaging temperatures
 temps = [0] * 4
 
+# Set initial memberdist value just in case
+memberdist = 0
+
 try:
     # Redirect system output to logs
     sys.stdout = open('logs/log.stdout', 'w')
@@ -26,21 +29,33 @@ try:
     while True:
 
         try:
+            # Read settings from namelist
+            nml_opts = read_nl( )
+        
             # Retrieve humidity, temperature, and local time
             hum, temp = ad.read_retry(ad.DHT22, 4)
             temp = C_to_F( temp )
             lt = time.localtime( )
 
             # Check namelist for frequency
-            freq = read_nl( )['freq']
+            freq = nml_opts['freq']
 
             # Discard data with unreasonably high humidity (indicator of bad data)
             if hum <= 104.:
                 # Ensure perturbation magnitude is reasonable (don't react to bad data)
                 if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
+                
+                    # Get minimum member distance from file
+                    if nml_opts['locator']:
+                        try:
+                            with open("member_distance", "r") as f:
+                                memberdist = float( f.read() )
+                        except:
+                            print( "%02d%02d%02d_%02d:%02d:%02d - Unable to read member_distance!" %
+                                    (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) )
 
                     # Check whether conditions warrant a change in relay status
-                    stat = tq.query( lt, temp, GPIO.input(18) )
+                    stat = tq.query( lt, temp, GPIO.input(18), memberdist, nml_opts )
 
                     # If status change is warranted, change status
                     if stat is not None:

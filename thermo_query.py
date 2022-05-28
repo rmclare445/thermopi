@@ -1,7 +1,6 @@
-#from read_nl import read_nl
-from locator import get_min_dist
+from read_nl import read_nl
 
-def query( lt, T, outpt, nml_opts ):
+def query( lt, T, outpt, dist, nml_opts=read_nl() ):
     # Input: local time, temperature, current relay status
     hr = lt[3]
     mn = lt[4]
@@ -43,14 +42,10 @@ def query( lt, T, outpt, nml_opts ):
     else:
         TT = nml_opts["phase_T"][0]
 
-    # Locator
+    # Check location if set
     if nml_opts['locator']:
-        try:
-            if get_min_dist() > nml_opts['radius']:
-                TT = nml_opts['away_T']
-        except:
-            print( "%02d%02d%02d_%02d:%02d:%02d - Unable to retrieve location data!" %
-                   (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) )
+        if dist > nml_opts['radius']:
+            TT = nml_opts['away_T']
 
     # If output is True/False, check threshold
     if outpt:
