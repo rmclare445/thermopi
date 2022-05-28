@@ -1,7 +1,12 @@
-# thermopi v3.0
+# thermopi v3.1
 Smart thermostat with Raspberry Pi
 
-I got annoyed with my ordinary thermostat because I wanted different temperature targets at different times of day.  After determining that replacing it with a relay module governed by a Raspberry Pi would be simple, I set about making my own smart thermostat.  The possibilities for new features are endless and I'm definitely open to suggestions.  Now my wall is ugly where my naked Raspberry Pi Zero W hangs idly by its power cord near the relay, supporting the thermometer's breadboard by jumper wire.  So the next big step will be to build some housing for it.  Other feature ideas are hidden throughout the code in comments.
+I like to sleep in the cold but I hate having to get out of bed to a cold house.  Because I couldn't very well change the temperature on my thermostat before waking up, I decided to automate the problem away.  Some investigation revealed that my central heating system is controlled by a single low voltage circuit which turns the furnace on while closed and off when open.  Essentially, the thermostat is just a relay connected to a dumb computer connected to a thermometer.  It made sense to create my own thermostat with a Raspberry Pi Zero W which could control the furnace according to my specific needs and would be connected to WiFi.
+
+The project has been developed over the past year and many features have been added in that time.  The namelist configuration allows changes to be made without interrupting operation.  The locator makes use of a Life360 API to heat the home above a minimum temperature only while occupants are present or close by.  This saves a significant amount of energy which would otherwise be spent heating an empty house.  Another great advantage of this system is the ability to record in situ temperature and humidity continuously.  I plan to include a plotting library for analysis of log files.  Observing the heating profile of my house over the course of several days has brought a lot of insight into how home heating is affected by the diurnal cycle, the presence of warm bodies inside, and even cooking going on in the kitchen.  There are a number of takeaways to be had about efficiency by studying your home's weekly heating profile.
+
+This has been a really fun and educational project and I'll keep working on it indefinitely.  It touches on so many different techniques and concepts but never felt exceptionally challenging (until I started trying to do the Google Sheets integration, yeesh).  I encourage any curious parties to try it out.  Take pictures of your current thermostat wiring, take it out, then follow the instructions below.  
+
 
 ## Physical configuration
 
@@ -55,7 +60,11 @@ Allow execution of thermo script (for running thermo.py on a detached screen).
 sudo chmod +x thermopi/thermo.sh
 ```
 
-You may want to use crontab to run thermopi at boot in case of a loss of power.  Just add ```@reboot cd <working_directory>/thermopi; sudo ./thermo.sh``` to your crontab file as demonstrated at https://www.tomshardware.com/how-to/run-script-at-boot-raspberry-pi
+You may want to use crontab to run thermopi at boot in case of a loss of power.  Open the crontab file ```sudo crontab -e``` and add the following line:
+
+```
+@reboot cd <parent_directory>/thermopi && sudo ./thermo.sh
+```
 
 ## Usage
 
@@ -95,7 +104,7 @@ All options for operation of the furnace can be configured by altering the ```th
 
 The next two options are the tolerances.  Generally you want to undershoot your target temperature before running the furnace and/or overshoot it before shutoff.  This prevents the furnace from switching on and off too often.
 
-- ```up_tol```: The amount above the target temperature to shutoff the furnace.
+- ```up_tol```: The amount above the target temperature to shut off the furnace.
 - ```dn_tol```: The amount below the target temperature to trigger the furnace.
 
 ```freq``` is the frequency in Hz of sampling.  For example, a freq of 0.1 samples every 10 seconds.
@@ -110,6 +119,19 @@ sudo cp example_keys.py keys.py
 ```
 
 Use an editor to configure the variables in ```keys.py```.
+
+You will also need to enable execution of ```location.py``` and schedule a cron job for it.
+
+```bash
+cd thermopi
+sudo chmod +x location.py
+```
+
+Add some variant of the following line to your crontab (open with ```sudo crontab -e```).  This updates location every minute.
+
+```
+* * * * * cd <parent_directory>/thermopi && sudo ./location.py
+```
 
 Now, back in ```thermopi/namelist.yaml```, we can configure the locator settings.
 
