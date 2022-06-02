@@ -80,9 +80,12 @@ class life360:
         id = circles[0]['id']
         circle = self.get_circle(id)
         for m in circle['members']:
-            lat = m['location']['latitude']
-            lon = m['location']['longitude']
-            mindist = min( mindist, dist( home[0], home[1], float(lat), float(lon) ) )
+            try:
+                lat = m['location']['latitude']
+                lon = m['location']['longitude']
+                mindist = min( mindist, dist( home[0], home[1], float(lat), float(lon) ) )
+            except:
+                pass
         return mindist
 
 
