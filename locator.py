@@ -14,12 +14,14 @@ except ImportError:
     
 authorization_token = "cFJFcXVnYWJSZXRyZTRFc3RldGhlcnVmcmVQdW1hbUV4dWNyRUh1YzptM2ZydXBSZXRSZXN3ZXJFQ2hBUHJFOTZxYWtFZHI0Vg=="
 
-Re   = 6371     # Earth radius in km
+Rekm = 6371     # Earth radius in km
+Remi = 3958	# Earth radius in mi
 
 def dist(lat1, lon1, lat2, lon2):
     # Euclidean distance along Earth surface in km
+    ## Will add Imperial capabilities
     d = np.sqrt((lat2-lat1)**2 + (lon2-lon1)**2)
-    return (d/360.) * 2 * np.pi * Re
+    return (d/360.) * 2 * np.pi * Rekm
 
 class life360:
     
