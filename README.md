@@ -63,7 +63,7 @@ sudo chmod +x thermopi/thermo.sh
 You may want to use crontab to run thermopi at boot in case of a loss of power.  Open the crontab file ```sudo crontab -e``` and add the following line:
 
 ```
-@reboot cd <parent_directory>/thermopi && sudo ./thermo.sh
+@reboot cd ~/thermopi && sudo ./thermo.sh
 ```
 
 ## Usage
@@ -130,7 +130,7 @@ sudo chmod +x location.py
 Add some variant of the following line to your crontab (open with ```sudo crontab -e```).  This updates location every minute.
 
 ```
-* * * * * cd <parent_directory>/thermopi && sudo ./location.py
+* * * * * cd ~/thermopi && sudo ./location.py
 ```
 
 Now, back in ```thermopi/namelist.yaml```, we can configure the locator settings.
