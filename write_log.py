@@ -19,10 +19,12 @@ def dtg_htg( lt ):
     return dtg, htg
 
 def write_state( temp, hum, stat, lt ):
-    # Write to continuous state log
+    # Write to continuous state log and publish current reading
     dtg, htg = dtg_htg( lt )
     entry = "%s, %s, %0.1f, %02d, %s\n" % (dtg, htg, temp, hum, stat)
     with open("logs/log.state", "a") as f:
+        f.write( entry )
+    with open("logs/log.now", "w") as f:
         f.write( entry )
 
 def write_ops( lt, status=None, T=None, bulletin=None ):
