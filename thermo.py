@@ -20,6 +20,8 @@ temps = [0] * 4
 
 # Set initial memberdist value just in case
 memberdist = 0
+# Get target temp prematurely, for logging
+_, TT = tq.query( time.localtime(), 100, GPIO.input(18), 100 )
 
 try:
     # Redirect system output to logs
@@ -30,7 +32,7 @@ try:
         try:
             # Read settings from namelist
             nml_opts = read_nl( )
-        
+
             # Retrieve humidity, temperature, and local time
             hum, temp = ad.read_retry(ad.DHT22, 4)
             temp = C_to_F( temp )
@@ -40,7 +42,7 @@ try:
             if hum <= 104.:
                 # Ensure perturbation magnitude is reasonable (don't react to bad data)
                 if pert( temp, temps ) < 1.5:  ## and toggle: # for switch button
-                
+
                     # Get minimum member distance from file
                     if nml_opts['locator']:
                         try:
@@ -51,7 +53,7 @@ try:
                                     (lt[0], lt[1], lt[2], lt[3], lt[4], lt[5]) )
 
                     # Check whether conditions warrant a change in relay status
-                    stat = tq.query( lt, temp, GPIO.input(18), memberdist, nml_opts )
+                    stat, TT = tq.query( lt, temp, GPIO.input(18), memberdist, nml_opts )
 
                     # If status change is warranted, change status
                     if stat is not None:
@@ -60,16 +62,16 @@ try:
                         wl.write_ops( lt, stat, temp )
 
                 # Write state and times to log
-                wl.write_state( temp, hum, log_stat, lt )
+                wl.write_state( temp, hum, log_stat, TT, lt )
 
                 # Add new temp, delete oldest even if perturbation magnitude is high
                 temps = update( temp, temps )
-            
+
             # Wait for next cycle according to specified frequency
             time.sleep(1/nml_opts['freq'])
 
         except Exception as e: print(e)
-            
+
 finally:
     # Clear GPIO config
     GPIO.output(18, False)

@@ -1,4 +1,5 @@
 import os
+from read_nl import read_nl
 
 # Make logs directory
 try:
@@ -18,10 +19,10 @@ def dtg_htg( lt ):
     htg = "%02d:%02d:%02d" % ( lt[3], lt[4], lt[5] )    # hour time group
     return dtg, htg
 
-def write_state( temp, hum, stat, lt ):
+def write_state( temp, hum, stat, tt, lt ):
     # Write to continuous state log and publish current reading
     dtg, htg = dtg_htg( lt )
-    entry = "%s, %s, %0.1f, %02d, %s\n" % (dtg, htg, temp, hum, stat)
+    entry = "%s, %s, %0.1f, %02d, %s, %02d\n" % (dtg, htg, temp, hum, stat, tt)
     with open("logs/log.state", "a") as f:
         f.write( entry )
     with open("logs/log.now", "w") as f:
@@ -36,3 +37,6 @@ def write_ops( lt, status=None, T=None, bulletin=None ):
         entry = entry + "room temp %0.1f" % T
     with open("logs/log.ops_%s" % dtg, "a") as f:
         f.write( "%s - %s\n" % (htg, entry) )
+
+if __name__ == "__main__":
+    pass

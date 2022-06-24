@@ -50,11 +50,15 @@ def query( lt, T, outpt, dist, nml_opts=read_nl() ):
     # If output is True/False, check threshold
     if outpt:
         if T >= TT + nml_opts["up_tol"]:
-            return False
+            return False, TT
         else:
-            return None
+            return None, TT
     else:
         if T <= TT - nml_opts["dn_tol"]:
-            return True
+            return True, TT
         else:
-            return None
+            return None, TT
+
+
+if __name__ == "__main__":
+    print(query( (0, 0, 0, 12, 00), 65, False, 0 ))
